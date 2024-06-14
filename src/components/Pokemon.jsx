@@ -15,7 +15,7 @@ const Pokemon = () => {
     special_attack: "",
     speed: "",
   });
-  const [foto, setFoto] = useState();
+  const [foto, setFoto] = useState("Cargando fotografía...");
   const [Loading, setLoading] = useState(true);
   const PokemonDetailsURL = "https://pokeapi.co/api/v2/pokemon/" + name;
   console.log(PokemonDetailsURL);
@@ -51,7 +51,7 @@ const Pokemon = () => {
       ) : (
         <div className="Card">
           <div className="imagen">
-            <img className="img-pokemon" src={foto} alt={name}></img>
+            <img className="img-pokemon" src={foto} alt={foto + name}></img>
           </div>
           <div className="detalle">
             <h2>{name}</h2>

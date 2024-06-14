@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import LoadingGif from "../assets/img/Loading_2.gif";
 import axios from "axios";
 
 const Inicio = () => {
   const [name, setName] = useState("");
   const [error, setError] = useState(true);
+  const [Loading, setLoading] = useState(true);
 
   const [options, setOptions] = useState([]);
   const PokemonApiURL = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0";
@@ -21,6 +23,7 @@ const Inicio = () => {
       });
 
       setOptions([{ key: "Seleccione un Personaje", value: "" }, ...results]);
+      setLoading(false);
     }
     getAllPokemons();
   }, []);
@@ -45,20 +48,28 @@ const Inicio = () => {
 
   return (
     <div>
-      <select onChange={handleChange}>
-        {options.map((option) => {
-          return (
-            <option key={option.key} value={option.value}>
-              {option.key}
-            </option>
-          );
-        })}
-      </select>
-      <div>
-        <button className="Button" onClick={irAPersonajes}>
-          Ver Detalle
-        </button>
-      </div>
+      {Loading ? (
+        <div>
+          <img src={LoadingGif}></img>
+        </div>
+      ) : (
+        <div>
+          <select onChange={handleChange}>
+            {options.map((option) => {
+              return (
+                <option key={option.key} value={option.value}>
+                  {option.key}
+                </option>
+              );
+            })}
+          </select>
+          <div>
+            <button className="Button" onClick={irAPersonajes}>
+              Ver Detalle
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
